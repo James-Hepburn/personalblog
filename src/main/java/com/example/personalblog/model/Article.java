@@ -34,4 +34,10 @@ public class Article {
     public String getContent () {
         return this.content;
     }
+
+    public String getFileName () {
+        return this.title.toLowerCase ().
+                replaceAll ("[^a-z0-9]+", "-").
+                replaceAll ("^-|-$", "");
+    }
 }
