@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Blog</title>
+
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1>Personal Blog</h1>
+
+    <ul>
+        <li th:each="article : ${articles}">
+            <a th:href="@{'/article/' + ${article.fileName}}" th:text="${article.title}"></a>
+            (<span th:text="${article.date}"></span>)
+        </li>
+    </ul>
+</body>
+</html>
