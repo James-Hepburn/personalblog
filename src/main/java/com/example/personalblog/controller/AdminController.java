@@ -44,6 +44,12 @@ public class AdminController {
         return "dashboard";
     }
 
+    // implement add later
+    @GetMapping("/admin/add")
+    public String add () {
+        return "dashboard";
+    }
+
     @PostMapping("/admin/delete/{fileName}")
     public String delete (@PathVariable String fileName) {
         articleService.deleteArticle (fileName);

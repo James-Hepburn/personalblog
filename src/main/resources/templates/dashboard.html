@@ -78,7 +78,7 @@
             background-color: #b91c1c;
         }
 
-        .logout-btn {
+        .logout-btn, .add-btn {
             display: block;
             margin: 2rem auto;
             padding: 0.7rem 1.5rem;
@@ -91,13 +91,15 @@
             transition: background-color 0.2s ease;
         }
 
-        .logout-btn:hover {
+        .logout-btn:hover, .add-btn:hover {
             background-color: #1d4ed8;
         }
     </style>
 </head>
 <body>
     <h1>Admin Dashboard</h1>
+
+    <button class = "add-btn" onclick = "window.location.href = '/admin/add'">+ Add</button>
 
     <ul>
         <li th:each="article : ${articles}">
