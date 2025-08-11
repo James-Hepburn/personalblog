@@ -77,6 +77,23 @@
         .delete-btn:hover {
             background-color: #b91c1c;
         }
+
+        .logout-btn {
+            display: block;
+            margin: 2rem auto;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            background-color: #2563eb;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #1d4ed8;
+        }
     </style>
 </head>
 <body>
@@ -95,5 +112,7 @@
             </div>
         </li>
     </ul>
+
+    <button class = "logout-btn" onclick = "window.location.href = '/'">Logout</button>
 </body>
 </html>

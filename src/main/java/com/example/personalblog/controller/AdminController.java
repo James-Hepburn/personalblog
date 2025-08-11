@@ -4,6 +4,7 @@ import com.example.personalblog.service.ArticleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,13 +38,16 @@ public class AdminController {
         return "dashboard";
     }
 
+    // implement edit later
     @GetMapping("/admin/edit")
-    public String edit () {
+    public String edit (@RequestParam String fileName) {
         return "dashboard";
     }
 
-    @GetMapping("/admin/delete")
-    public String delete () {
-        return "dashboard";
+    @PostMapping("/admin/delete/{fileName}")
+    public String delete (@PathVariable String fileName) {
+        articleService.deleteArticle (fileName);
+
+        return "redirect:/admin/dashboard";
     }
 }
