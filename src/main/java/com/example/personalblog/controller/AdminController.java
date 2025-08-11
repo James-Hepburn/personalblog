@@ -1,5 +1,6 @@
 package com.example.personalblog.controller;
 
+import com.example.personalblog.model.Article;
 import com.example.personalblog.service.ArticleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,15 +45,22 @@ public class AdminController {
         return "dashboard";
     }
 
-    // implement add later
     @GetMapping("/admin/add")
     public String add () {
-        return "dashboard";
+        return "addArticle";
     }
 
     @PostMapping("/admin/delete/{fileName}")
     public String delete (@PathVariable String fileName) {
         articleService.deleteArticle (fileName);
+
+        return "redirect:/admin/dashboard";
+    }
+
+    @PostMapping("/admin/save")
+    public String delete (@RequestParam String title, @RequestParam String date, @RequestParam String content) {
+        Article article = new Article (title, date, content);
+        articleService.saveArticle (article);
 
         return "redirect:/admin/dashboard";
     }
