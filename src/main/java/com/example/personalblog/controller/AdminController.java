@@ -39,10 +39,16 @@ public class AdminController {
         return "dashboard";
     }
 
-    // implement edit later
-    @GetMapping("/admin/edit")
-    public String edit (@RequestParam String fileName) {
-        return "dashboard";
+    @GetMapping("/admin/edit/{fileName}")
+    public String edit (@PathVariable String fileName, Model model) {
+        Article article = articleService.getArticleByFileName (fileName);
+
+        model.addAttribute ("fileName", fileName);
+        model.addAttribute ("title", article.getTitle ());
+        model.addAttribute ("date", article.getDate ());
+        model.addAttribute ("content", article.getContent ());
+
+        return "editArticle";
     }
 
     @GetMapping("/admin/add")
@@ -58,8 +64,22 @@ public class AdminController {
     }
 
     @PostMapping("/admin/save")
-    public String delete (@RequestParam String title, @RequestParam String date, @RequestParam String content) {
-        Article article = new Article (title, date, content);
+    public String delete (@RequestParam(required = false) String fileName, @RequestParam String title, @RequestParam String date, @RequestParam String content) {
+        Article article = new Article ();
+
+        String newFileName = title.toLowerCase ().
+                replaceAll ("[^a-z0-9]+", "-").
+                replaceAll ("^-|-$", "");
+
+        if (fileName != null && !fileName.isBlank () && !fileName.equals (newFileName)) {
+            articleService.deleteArticle (fileName);
+        }
+
+        article.setFileName (newFileName);
+        article.setTitle(title);
+        article.setDate(date);
+        article.setContent(content);
+
         articleService.saveArticle (article);
 
         return "redirect:/admin/dashboard";

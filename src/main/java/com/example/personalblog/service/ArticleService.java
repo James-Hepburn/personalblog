@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class ArticleService {
@@ -41,6 +42,30 @@ public class ArticleService {
         }
 
         return articles;
+    }
+
+    public Article getArticleByFileName (String fileName) {
+        AtomicReference <Article> result = new AtomicReference <>();
+
+        try {
+            Files.walk (this.fileDirectory, 1)
+                    .filter (Files::isRegularFile)
+                    .forEach (path ->{
+                        try {
+                            Article article = objectMapper.readValue (path.toFile (), Article.class);
+
+                            if (article.getFileName ().equals (fileName)) {
+                                result.set (article);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace ();
+                        }
+                    });
+        } catch (IOException e) {
+            e.printStackTrace ();
+        }
+
+        return result.get ();
     }
 
     public void saveArticle (Article article) {

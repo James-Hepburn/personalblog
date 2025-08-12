@@ -30,6 +30,9 @@ public class Article {
     public void setContent (String content) {
         this.content = content;
     }
+    public void setFileName (String fileName) {
+        this.fileName = fileName;
+    }
 
     public String getTitle () {
         return this.title;
@@ -40,7 +43,6 @@ public class Article {
     public String getContent () {
         return this.content;
     }
-
     public String getFileName () {
         return this.title.toLowerCase ().
                 replaceAll ("[^a-z0-9]+", "-").
